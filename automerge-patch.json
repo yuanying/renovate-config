@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Opt-in, on top of the default preset. It is kept out of the default because a preset's packageRules win over a repository's top-level automerge: false, so a repository that keeps every merge to a person could not turn it off",
+  "packageRules": [
+    {
+      "description": "Patch, digest and pinning updates are merged by Renovate itself once the pull request's checks pass; minor and major updates only open a pull request. This relies on platformAutomerge being off, as the default preset sets it: Renovate merges only once it sees the checks green, and a branch with no checks at all is never green to it, so it is never merged. A repository using this should run its checks on every pull request, without a paths filter that would leave Renovate's branches untested",
+      "matchUpdateTypes": ["patch", "digest", "pin", "pinDigest"],
+      "automerge": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "This repository follows its own presets. The only dependencies here are the actions of validate.yml, which runs on every pull request, so a patch update is merged once the presets still validate",
+  "extends": [
+    "local>yuanying/renovate-config",
+    "local>yuanying/renovate-config:automerge-patch"
+  ]
+}
