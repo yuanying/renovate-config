@@ -1,0 +1,29 @@
+# Validates the presets and this repository's own Renovate config.
+#
+# Every repository that extends these presets picks up a change as soon as it
+# is on main, so a file Renovate cannot read would break all of them at once.
+# The validator checks each file on its own: it does not fetch the presets a
+# file extends, so renovate.json is checked without what default.json adds.
+# --no-global reads the files as repository config, which is what a preset is
+# merged into, and --strict also fails on an option Renovate would migrate.
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # Renovate asks for Node 24, which the runner does not promise to have.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Validate the presets
+        run: npx --yes --package renovate -- renovate-config-validator --no-global --strict default.json automerge-patch.json renovate.json
