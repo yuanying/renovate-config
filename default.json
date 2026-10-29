@@ -7,6 +7,13 @@
   "minimumReleaseAge": "2 days",
   "internalChecksFilter": "strict",
   "platformAutomerge": false,
+  "logLevelRemap": [
+    {
+      "description": "A repository that sets minimumReleaseAgeBehaviour to timestamp-optional for some dependencies has asked for them to go ahead without a release time, yet Renovate still warns each time it does so, and the warning lands among the Dependency Dashboard's repository problems. Reported as info, the expected behaviour no longer hides the real problems. Only these two messages are matched, so every other warning stays a warning",
+      "matchMessage": "/^Some (release|upgrade)\\(s\\) did not have a releaseTimestamp, but as we're running with minimumReleaseAgeBehaviour=timestamp-optional, proceeding/",
+      "newLogLevel": "info"
+    }
+  ],
   "packageRules": [
     {
       "description": "The official ubuntu image is proposed without the two-day wait. Docker Hub gives a tag's last push as its release time, and the official ubuntu tags are pushed again every day or two, so a tag seldom looks two days old and an update would hardly ever be proposed. The rule is here for every repository, whether it uses the image today or not, so that a base changed to ubuntu later does not fall into the same trap. The name is matched as it is written, not as Docker Hub resolves it, so each way of writing the image is listed. The pull request's checks still have to pass",

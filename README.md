@@ -34,6 +34,11 @@ is opt-in; leave it out where every merge is left to a person.
 - `platformAutomerge` is `false`: whatever Renovate is allowed to merge, it
   merges itself once it sees the checks green, without the repository's
   auto-merge setting or branch protection.
+- The two warnings Renovate gives when it lets a release without a release
+  time through under `minimumReleaseAgeBehaviour: timestamp-optional` are
+  logged as `info`, so they stay out of the Dependency Dashboard's repository
+  problems. That is the behaviour the repository asked for; every other
+  warning is left as it is.
 - The official `ubuntu` image from Docker Hub has no wait. Docker Hub gives a
   tag's last push as its release time, and the ubuntu tags are pushed again
   every day or two, so with the wait an update would hardly ever be proposed.
