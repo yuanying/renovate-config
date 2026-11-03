@@ -26,4 +26,4 @@ jobs:
         with:
           node-version: "24"
       - name: Validate the presets
-        run: npx --yes --package renovate -- renovate-config-validator --no-global --strict default.json automerge-patch.json renovate.json
+        run: npx --yes --package renovate -- renovate-config-validator --no-global --strict default.json automerge-patch.json platform-automerge.json renovate.json
