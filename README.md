@@ -18,7 +18,9 @@ In a repository's `renovate.json`:
 
 `github>yuanying/renovate-config` is the default preset (`default.json`) and is
 meant for every repository. `github>yuanying/renovate-config:automerge-patch`
-is opt-in; leave it out where every merge is left to a person.
+and `github>yuanying/renovate-config:platform-automerge` are opt-in, and a
+repository extends at most one of them; leave both out where every merge is
+left to a person.
 
 ## Presets
 
@@ -57,6 +59,24 @@ is opt-in; leave it out where every merge is left to a person.
 - It is not part of the default preset because a preset's `packageRules` win
   over a repository's top-level `"automerge": false`, so a repository that
   must not merge on its own could not turn it off.
+
+### `platform-automerge.json`
+
+- Every update, major ones included, gets GitHub's auto-merge
+  (`platformAutomerge: true`, `automerge: true`) as soon as its pull request
+  is opened. GitHub merges it the moment the default branch's ruleset is met,
+  without waiting for Renovate's next run.
+- What holds an update back is the repository's ruleset, not Renovate. Before
+  a repository extends this preset it must:
+  - allow auto-merge,
+  - list its reviewers in `.github/CODEOWNERS`, and
+  - protect the default branch with a ruleset that requires a pull request
+    with a code owner's approval, dismisses an approval when new commits are
+    pushed, and requires the checks of every pull request.
+- Without those, Renovate cannot turn on auto-merge and falls back to merging
+  every update itself once the checks are green, major updates included.
+- `automerge` is set at the top level, so a repository's own top-level
+  `"automerge": false` still turns it off.
 
 ## Overriding in a repository
 

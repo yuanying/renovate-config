@@ -1,0 +1,6 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Opt-in, on top of the default preset, in place of automerge-patch. Every update, major ones included, gets GitHub's auto-merge as soon as its pull request is opened, and GitHub merges it once the repository's ruleset is met: an approval from a code owner and the required checks. The approval is what keeps an update from being merged, so the repository must allow auto-merge and protect its default branch with such a ruleset before it extends this preset. Without them Renovate falls back to merging every update itself once the checks are green. automerge is set at the top level, not in packageRules, so that a repository's own top-level automerge: false still turns it off",
+  "platformAutomerge": true,
+  "automerge": true
+}
