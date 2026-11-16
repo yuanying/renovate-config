@@ -31,6 +31,18 @@ left to a person.
   update is a `chore(deps):` commit. Elsewhere the commits keep Renovate's
   plain `Update ...` subjects.
 - `timezone` is `Asia/Tokyo` and the Dependency Dashboard is on.
+- Updates are proposed once a week: `schedule` is `* * * * 0`, the whole of
+  Sunday in Tokyo. The repositories release what Renovate merged as a patch
+  version on Monday at 09:00 in Tokyo, so what opens on Sunday can make that
+  release, and a self-hosted Renovate that runs once a day still meets a
+  window of a whole day. The schedule only holds back new branches: a pull
+  request already open is still rebased and moved to a newer release during
+  the week, and what a repository lets Renovate merge is still merged then.
+  A box ticked on the Dependency Dashboard also opens its branch at once.
+- A fix for a known vulnerability does not wait for Sunday. Renovate ignores
+  `schedule`, `minimumReleaseAge` and the hourly limits for
+  `vulnerabilityAlerts`, which come from the repository's Dependabot alerts
+  and so need them turned on.
 - `minimumReleaseAge` is `2 days`, with `internalChecksFilter: strict`: an
   update gets no branch until it has been public for two days.
 - `platformAutomerge` is `false`: whatever Renovate is allowed to merge, it
