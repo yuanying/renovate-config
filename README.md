@@ -43,6 +43,13 @@ left to a person.
   `schedule`, `minimumReleaseAge` and the hourly limits for
   `vulnerabilityAlerts`, which come from the repository's Dependabot alerts
   and so need them turned on.
+- `osvVulnerabilityAlerts` is on: Renovate also opens these fixes from the
+  OSV database, which it downloads whole and queries locally. It needs no
+  repository setting and sends nothing about the repository, so it works for
+  the Renovate app, a self-hosted Renovate and private repositories alike. It
+  covers the packages of languages (npm, PyPI, Go modules, RubyGems, crates
+  and the like), and only direct dependencies; it has nothing for Docker
+  images, Kustomize or GitHub Actions.
 - `minimumReleaseAge` is `2 days`, with `internalChecksFilter: strict`: an
   update gets no branch until it has been public for two days.
 - `platformAutomerge` is `false`: whatever Renovate is allowed to merge, it
