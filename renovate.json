@@ -1,8 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "This repository follows its own presets. The only dependencies here are the actions of validate.yml, which runs on every pull request, so a patch update is merged once the presets still validate",
+  "description": "This repository follows its own presets. The only dependencies here are those of validate.yml, its actions and the Renovate it validates with, and it runs on every pull request, so a patch update is merged once the presets still validate",
   "extends": [
     "local>yuanying/renovate-config",
     "local>yuanying/renovate-config:automerge-patch"
+  ],
+  "customManagers": [
+    {
+      "description": "validate.yml runs a pinned Renovate, given to npx as renovate@<version>, which no built-in manager reads. Updating the pin is how the presets meet a newer Renovate: a release that asks for a migration fails only this pull request. It is left out of the github-actions group, so that such a failure does not hold back the actions",
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.github/workflows/validate\\.yml$/"],
+      "matchStrings": ["--package renovate@(?<currentValue>\\d+\\.\\d+\\.\\d+)"],
+      "datasourceTemplate": "npm",
+      "depNameTemplate": "renovate"
+    }
   ]
 }

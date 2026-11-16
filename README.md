@@ -98,3 +98,11 @@ open a configuration error issue in each of those repositories instead of
 updating them. The `validate` workflow checks the files on every pull request,
 but it does not see how a change combines with each repository's own rules, so
 read those before changing or removing a rule here.
+
+The workflow runs a pinned Renovate rather than the latest release, so that an
+option upstream starts asking to migrate does not fail every pull request at
+once. Renovate updates the pin in a pull request of its own, outside the
+`github-actions` group: a patch is merged once the presets still validate, and
+a release that asks for a migration fails only that pull request. Making the
+migration is a separate decision: the repositories read these presets with
+whichever Renovate runs on them, which may not know the new form yet.

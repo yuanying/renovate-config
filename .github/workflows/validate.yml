@@ -6,6 +6,13 @@
 # file extends, so renovate.json is checked without what default.json adds.
 # --no-global reads the files as repository config, which is what a preset is
 # merged into, and --strict also fails on an option Renovate would migrate.
+#
+# Renovate is pinned. With the latest release, an option that upstream starts
+# asking to migrate fails every pull request at once, whatever it changes, and
+# no change to the presets can go in until the migration is done. Pinned, the
+# migration shows up on the pull request that updates the pin, which Renovate
+# opens through the custom manager in renovate.json, and every other pull
+# request keeps the version the presets are known to validate against.
 name: validate
 
 on:
@@ -26,4 +33,4 @@ jobs:
         with:
           node-version: "24"
       - name: Validate the presets
-        run: npx --yes --package renovate -- renovate-config-validator --no-global --strict default.json automerge-patch.json platform-automerge.json renovate.json
+        run: npx --yes --package renovate@44.231.0 -- renovate-config-validator --no-global --strict default.json automerge-patch.json platform-automerge.json renovate.json
